@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+import { Geist, Geist_Mono } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
+import NavbarSection from "@/components/sections/navbar/default";
+import FooterSection from "@/components/sections/footer/default";
+import { ThemeProvider } from "@/components/contexts/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +28,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased`}
       >
-        {children}
+        <ThemeProvider>
+          <NextTopLoader />
+          <NavbarSection />
+          {children}
+          <FooterSection />
+        </ThemeProvider>
       </body>
     </html>
   );
